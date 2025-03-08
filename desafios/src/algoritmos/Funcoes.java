@@ -12,31 +12,37 @@ public class Funcoes	{
 			return resultado;
 		}
 	}
-	public static void fizzBuzz ()	{
+	public static String [] fizzBuzz ()	{
 		int variavel = 1;
-		String palavras;
+		String [] resultado = new String [100];
+
 		while (variavel <= 100)	{
-			palavras = "";
+			resultado[variavel - 1] = "";
 			
 			if (variavel % 3 == 0)	{
-				palavras += "Fizz";
+				resultado[variavel - 1] += "Fizz";
 			}
 			if (variavel % 5 == 0)	{
-				palavras += "Buzz";
+				resultado[variavel - 1] += "Buzz";
 			}
-			
-			if (! (palavras.equals("")))	{
-				System.out.println(palavras);
-			}	else	{
-				System.out.println(variavel);
+			if (resultado[variavel - 1].equals(""))	{
+				resultado[variavel - 1] += variavel;
 			}
 
 			variavel++;
 		}
+		return resultado;
 	}
-	public static boolean palindromo (String palavra)	{
+	public static boolean palindromo (String sentenca)	{
         boolean verificador = true;
-        char [] vetor = palavra.toUpperCase().toCharArray();
+		String [] palavras = sentenca.toUpperCase().split("[,\\./\\s]");
+		String aux = "";
+
+		for (int i = 0; i < palavras.length; i++)	{
+			aux += palavras[i];
+		}
+
+        char [] vetor = aux.toCharArray();
 
         for (int esquerda = 0, direita = vetor.length - 1, limite = direita / 2;
 			esquerda < limite && direita > limite && verificador;
@@ -90,7 +96,7 @@ public class Funcoes	{
 			k++;
 		}
 	}
-	private static void sort (int vetor [], int esq, int dir)	{
+	public static void sort (int vetor [], int esq, int dir)	{
 		if (esq < dir)	{
 			int meio = esq + (dir - esq) / 2;
 
@@ -101,8 +107,6 @@ public class Funcoes	{
 		}
 	}
 	public static boolean [] verificaPrimos (int vetor [])	{
-		sort(vetor, 0, vetor.length - 1);
-
 		int contador = 0;
 		int divisor = 3;
 		boolean resultado [] = new boolean [vetor.length];
@@ -114,7 +118,9 @@ public class Funcoes	{
 		contador = 0;
 
 		while (contador < resultado.length)	{
-			if (vetor[contador] % 2 == 0)	{
+			if (vetor[contador] == 2)	{
+				resultado[contador] = true;
+			}	else if (vetor[contador] == 1 ^ vetor[contador] % 2 == 0)	{
 				resultado[contador] = false;
 			}	else	{
 				while (divisor < vetor[contador] && resultado[contador])	{
@@ -124,6 +130,7 @@ public class Funcoes	{
 						divisor += 2;
 					}
 				}
+				divisor = 3;
 			}
 			contador++;
 		}
