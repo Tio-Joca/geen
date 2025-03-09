@@ -35,7 +35,7 @@ public class Funcoes	{
 	}
 	public static boolean palindromo (String sentenca)	{
         boolean verificador = true;
-		String [] palavras = sentenca.toUpperCase().split("[,\\./\\s]");
+		String [] palavras = sentenca.toUpperCase().split("[,/!?\\./\\s]");
 		String aux = "";
 
 		for (int i = 0; i < palavras.length; i++)	{
@@ -108,21 +108,18 @@ public class Funcoes	{
 	}
 	public static boolean [] verificaPrimos (int vetor [])	{
 		int contador = 0;
-		int divisor = 3;
+		int divisor;
 		boolean resultado [] = new boolean [vetor.length];
-
-		while (contador < resultado.length)	{
-			resultado[contador++] = true;
-		}
-
-		contador = 0;
 
 		while (contador < resultado.length)	{
 			if (vetor[contador] == 2)	{
 				resultado[contador] = true;
-			}	else if (vetor[contador] == 1 ^ vetor[contador] % 2 == 0)	{
+			}	else if (vetor[contador] < 2 || vetor[contador] % 2 == 0)	{
 				resultado[contador] = false;
 			}	else	{
+				divisor = 3;
+				resultado[contador] = true;
+
 				while (divisor < vetor[contador] && resultado[contador])	{
 					if (vetor[contador] % divisor == 0)	{
 						resultado[contador] = false;
@@ -130,7 +127,6 @@ public class Funcoes	{
 						divisor += 2;
 					}
 				}
-				divisor = 3;
 			}
 			contador++;
 		}
